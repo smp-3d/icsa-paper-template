@@ -23,6 +23,7 @@
 \usepackage[backend=bibtex,style=ACM-Reference-Format]{biblatex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand{\rmdefault}{ptm}  	% Times New Roman
+\newcommand{\citationneeded}[1][]{\textsuperscript{\color{black} [citation needed]}}
 
 %\bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography.bib}
@@ -155,8 +156,13 @@ The new ADD-format and toolkit enables increased flexibility in production workf
 
 \section{Introduction} \label{sec:introduction}
 
+\subsection{Ambisonics}
 
-Lorem Ipsum \autocite{ambix}
+Ambisonics is a 3D audio representation approach based on spherical harmonics. Compared to traditional multichannel audio where each channel contains the signal for one loudspeaker, in Ambisonics the channels contain information about certain properties of the acoustic field.
+
+It was first developed in the 1970s by the British National Research Development Corporation for Broadcasting purposes.\citationneeded Recently the format has found new popularity as higher order implementations in virtual reality applications and special mutlichannel setups.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ambisonics Decoding} \label{sec:AmbisonicsDecoding}
