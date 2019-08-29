@@ -158,13 +158,13 @@ The new ADD-format and toolkit enables increased flexibility in production workf
 
 \subsection{Spatial Audio}
 
-Spatial Audio or 3D Audio is either achieved by having multiple speakers placed around aswell as above (and in some cases below) the listener or by using headphones with a head related transfer function (HRTF). This enables the creation of immersive audio experiences.
+Spatial Audio or 3D Audio is either achieved by having multiple speakers placed around, aswell as above (and in some cases below) the listener or by using headphones with a head related transfer function (HRTF). This enables the creation of immersive audio experiences.
 
 \subsection{Ambisonics}
 
 Ambisonics is a 3D audio representation approach based on spherical harmonics. Compared to traditional multichannel audio where each channel contains the signal for one loudspeaker, in Ambisonics the channels contain information about certain properties of the acoustic field.
 
-It was first developed in the 1970s by the British National Research Development Corporation for Broadcasting purposes.\citationneeded Recently the format has found new popularity as higher order implementations in virtual reality applications and special mutlichannel setups.
+It was first developed in the 1970s by the British National Research Development Corporation for Broadcasting purposes.\citationneeded Recently the format has found new popularity as higher order implementations in virtual reality applications and irregular mutlichannel setups.
 
 
 
@@ -177,6 +177,8 @@ The Legendre polynomials $P_{n}(x)$ are solutions to Legendres differential equa
 \[
     P_{n}(x)=\frac{1}{2^{n} n !} \frac{d^{n}}{d x^{n}}\left(x^{2}-1\right)^{n}    
 \]
+
+This is a Placeholder for Jonas' math wisdom
 
 \subsection{Normalization}
 
@@ -211,6 +213,8 @@ N3D differs from SN3D only by a scaling factor. It ensures qual power of the enc
 When working with Ambisonics in irregular multichannel setups, the choice of decoder is a key component in the quality of the experience a listener might have. So having the option to easily work with multiple tools will be very helpful in designing a listening enviroment which is suitable for ones needs.
 
 In the current field of ambisonics software tools, there is no agreed upon standard for saving and handling ambisonics decoding matrix data, which makes working with multiple software solutions difficult. 
+
+The creation of a software library which can be implemented by plugin developers will enable widespread adoption of the file format. For software which doesn't include \textit{.add} functionality there are user facing tools for converting between file types. A list of compatible file types can be found in the \textit{.add} specification \autocite{spec}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementation} \label{sec:Implementation}
