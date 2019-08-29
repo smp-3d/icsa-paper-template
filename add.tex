@@ -156,6 +156,10 @@ The new ADD-format and toolkit enables increased flexibility in production workf
 
 \section{Introduction} \label{sec:introduction}
 
+\subsection{Spatial Audio}
+
+Spatial Audio or 3D Audio is either achieved by having multiple speakers placed around aswell as above (and in some cases below) the listener or by using headphones with a head related transfer function (HRTF). This enables the creation of immersive audio experiences.
+
 \subsection{Ambisonics}
 
 Ambisonics is a 3D audio representation approach based on spherical harmonics. Compared to traditional multichannel audio where each channel contains the signal for one loudspeaker, in Ambisonics the channels contain information about certain properties of the acoustic field.
@@ -167,13 +171,20 @@ It was first developed in the 1970s by the British National Research Development
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ambisonics Encoding/Decoding} \label{sec:AmbisonicsEncodingDecoding}
 
+\subsection{Spherical Harmonics}
+
+The Legendre polynomials $P_{n}(x)$ are solutions to Legendres differential equation and can be expressed with a Rodrigues representation
+\[
+    P_{n}(x)=\frac{1}{2^{n} n !} \frac{d^{n}}{d x^{n}}\left(x^{2}-1\right)^{n}    
+\]
+
 \subsection{Normalization}
 
 For succesful reconstruction of the sound field encoding and decoding have to agree on the method by which the spherical harmonic compononents are normalized. There are different approaches to calculating the normalization factor $N$ of ambisonics channel $m$ with order $\ell$ . In the following the most common ones are described.
 
 \subsubsection{SN3D}
 
-With SN3D or Schmidt semi-normalisation no component will ever exceed the peak vlaue of the 0th order component for single point sources. \autocite{ambix} Since the proposal of the AmbiX format it has been widely adopted in modern ambisonics software development.
+With SN3D or Schmidt semi-normalisation no component will ever exceed the peak value of the 0th order component for single point sources. \autocite{ambix} Since the proposal of the AmbiX format it has been widely adopted in modern ambisonics software development.
 
 \[
     N_{\ell,m}^{SN3D} = \sqrt{(2-\delta_m)\cfrac{\ell-|m|!}{\ell+|m|!}},\delta_m 
@@ -197,7 +208,7 @@ N3D differs from SN3D only by a scaling factor. It ensures qual power of the enc
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation} \label{sec:Motivation}
 
-When working with Ambisonics in complex multichannel setups, the choice of decoder is a key component in the quality of the experience a listener might have. So having the option to easily work with multiple tools will be very helpful in designing a listening enviroment which is suitable for ones needs.
+When working with Ambisonics in irregular multichannel setups, the choice of decoder is a key component in the quality of the experience a listener might have. So having the option to easily work with multiple tools will be very helpful in designing a listening enviroment which is suitable for ones needs.
 
 In the current field of ambisonics software tools, there is no agreed upon standard for saving and handling ambisonics decoding matrix data, which makes working with multiple software solutions difficult. 
 
