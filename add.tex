@@ -18,11 +18,14 @@
 \usepackage{lipsum} \setlipsumdefault{1}
 \usepackage[pdftex]{hyperref}		%%Dokumenteneigenschaften
 \usepackage[english]{babel}			%% English- erweiterte Silbentrennung und �bersetzung von Begriffen
-\usepackage{cite} 							%% erlaubt Einbindung von bibrefs
+%\usepackage{cite} 							%% erlaubt Einbindung von bibrefs
 \usepackage{ragged2e}						%% Flattersa
+\usepackage[backend=bibtex,style=ACM-Reference-Format]{biblatex}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand{\rmdefault}{ptm}  	% Times New Roman
 
+%\bibliographystyle{ACM-Reference-Format}
+\bibliography{bibliography.bib}
 
 %%Mit den folgenden Befehlen lassen sich die Dokumenteigenschaften des erstellten PDF Dokuments nach den eigenen W�nschen anpassen:
 \hypersetup{pdfauthor = {H. Baumgartner, W. Hoeg, T. Sporer (Ver. 05/2018)},pdftitle = {Template (LaTeX format) for contributions for the ICSA},pdfsubject = {Verband Deutscher Tonmeister (VDT)},pdfkeywords = {keyword 1, keyword 2, etcetera},pdfcreator = {Anwendung},pdfproducer = {PDF erstellt mit}} 
@@ -119,15 +122,11 @@
 % Names and affiliation of authors
 \author{ %
 %
-N. Autor$^1$, Z. Co-Autor$^2$\\
+G. Arlauskas, J. Ohland, H. Schaar\\
 %
-$^1$ \textit{\large %
-University of Technology Delft, The Netherlands, Email: f.author@tudelft.nl
+\textit{\large %
+University of Applied Sciences Darmstadt, Germany, Email: jonas.ohland@stud.h-da.de
 }\\
-%
-$^2$ \emph{\large %
-Lauteakustik GmbH Dresden, 01187 Dresden, Germany, Email: lauteakustik@dresden.com
-}
 %
 }
 %
@@ -145,9 +144,11 @@ Lauteakustik GmbH Dresden, 01187 Dresden, Germany, Email: lauteakustik@dresden.c
 \begin{onecolabstract}
 {\vspace{3mm}}
 
-This is the abstract of your contribution. The maximum extent of the abstract should not go over 250 words. Please use possibly the same wording as in your prior submission of the abstract. 
+Different software solutions have been developed for the calculation and implementation of Ambisonics decoding matrices. The present paper presents and describes a new data file format which can be used as an intermediate between solutions.
 
-Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibulum ut, placerat ac, adipiscing vitae, felis. Curabitur dictum gravida mauris. Nam arcu libero, nonummy eget, consectetuer id, vulputatea, magna. Donec vehicula augue eu neque. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Mauris ut leo. Cras viverra metus rhoncus sem. Nulla et lectus vestibulum urna fringilla ultrices. Phasellus eu tellus sit amet tortor gravida placerat. Integer sapien est, iaculis in, pretium quis, viverra ac, nunc. 
+Currently available software solutions use particular data conventions causing difficult compatibility and exchangeability. In the present work an open-source toolkit is developed for storing, handling and using Ambisonics decoding matrices. The toolkit includes tools for conversion from common matrix data conventions to the ADD-format and back, calculating decoding matrices, decoding Ambisonics signals and extracting existing matrices from external decoding tools. 
+
+The new ADD-format and toolkit enables increased flexibility in production workflows and eliminates the drawbacks and limitations regarding compatibility between software solutions.
 
 \end{onecolabstract}
 {\vspace{8mm}}]
@@ -155,138 +156,26 @@ Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut purus elit, vestibu
 \section{Introduction} \label{sec:introduction}
 
 
-This is the format template for creating an {\underline ICSA Abtract-Reviewed contribution} to the conference proceedings for the ICSA in Ilmenau, Germany. \textbf{Dieses Template kann auch f�r eine Einreichung in Deutscher Sprache verwendet werden.} To standardise the appearance of papers in the proceedings/CD you are kindly requested to use this format. The specifications apply to word processing in \LaTeX (.tex version). This format template is available at \textcolor{blue}{\url{https://vdt-icsa.de/en/2019/}}
-
-The template makes available the necessary requirements for the easy and unified formatting of your text. Please use only the formatting provided in this format template. Only in this way we can be certain that all of the papers in the entire proceedings have a uniform layout and format.
-
-Please note that the Abstract-Reviewed Papers at ICSA can be published by VDT, in print, online and as PDF download.
+Lorem Ipsum \autocite{ambix}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Important} \label{sec:Important}
+\section{Ambisonics Decoding} \label{sec:AmbisonicsDecoding}
 
-When you submitted your abstract to the ICSA EasyChair portal, the database manager has recorded relevant information about your paper, and in particular:
-\begin{itemize}
-	\item[-] the title of your paper;
-	\item[-] the list of authors.
-\end{itemize}
-This information is then used by the automatic system to produce various documents, like the program of the conference, an author index, \ldots.
-
-It is particularly important that the submission database remains coherent with the PDF file you finally submit. You may later on change the title of your paper, or the authors' information, but in this case, we highly recommend that you update your submission by sending an email to \textcolor{blue}{\url{icsa-proceedings@imt.rz.tu-ilmenau.de}} as soon as possible.
-
-The proceedings editors produce the final documents to be published by manual or automatic manipulation of the author's PDF files, including insertion of the final page numbers.
-
-
-\begin{figure}[hbt]
-	\begin{center}
-		\includegraphics[width=\columnwidth]{figures/figure1.jpeg}
-	\end{center}
-	\caption{Multi channel music recordings were performed in the Konzerthaus Detmold. (The caption should contain enough information to understand the figure without reading the whole manuscript.)\label{fig:dode}}
-\end{figure}
-
-
-For this reason, it is very important that you verify the following options in your PDF document:
-\begin{itemize}
-	\item[-] do not insert any headers/footers at any page;
-	\item[-] do not insert any page numbers;
-	\item[-] follow the margins specifications given below;
-	\item[-] if you use a trial version of a shareware to produce your PDF file, check that the shareware did not insert additional comments to your document.
-\end{itemize}
-
-The submitted PDF files will be examined by the editors before the final edition of the proceedings. They have the authorisation to reject any PDF that does not match the given specifications. \textbf{In that case, either the authors will modify their manuscript and resubmit a new version that meets the rules in an acceptable way; otherwise, the rejected manuscript will be replaced by the abstract only.}
+Lorem Ipsum \autocite{norm}
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Basic Formats} \label{sec:BasicFormats}
+\section{Motivation} \label{sec:Motivation}
 
-\subsection{Page Layout}
-The page layout should meet the format requirements given in this template. It can be taken over simply by copy \& paste your draft plain text directly into this template.
-
-\textbf{Margins:} top and bottom 2 cm distance, left and right 1,5 cm distance. Distance between the columns: 0,7 cm.
-
-\textbf{Page size:} A4
-
-\textbf{Number of pages:} the manuscript should possibly not exceed a number of 8 pages.
+Lorem Ipsum \autocite{daniel}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Formats} \label{sec:Formats}
+\section{Implementation} \label{sec:Implementation}
 
-\subsubsection{Font}
-\textit{Times New Roman} should be used as the font. The standard size of the type should be 10~points~(pt). 
-
-\subsubsection{Title} 
-Type size: 14pt, bold, Alignment: centred, Distances: 0pt before, 6pt after. Author centred under the title in 12pt type, normal. Institution: under names, centred 11pt italics.
-
-\subsubsection{Headings}
-\begin{enumerate}
-	\item Type size 14pt, bold, left, 9pt before, 6pt after.
-	\item Type size 12pt, bold, left, 6pt before, 6pt after.
- 	\item Type size 10pt, bold, left, 3pt before, 3pt after.
-\end{enumerate}
-
-\subsubsection{Text Body}
-Type size: 10pt, normal; Alignment: Left and right justified; Distances: before paragraph 0pt, after 6pt; Line spacing 12pt. All further paragraphs should be based on the text body format.
-
+Lorem Ipsum
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Special Formats} \label{sec:SpecialFormats}
 
-\subsection{Graphics}
-
-Graphics and figure text will be inserted centred in the column (see \textbf{Fig.~\ref{fig:dode}} 
-and \textbf{Fig.~\ref{fig:Erwin}}) or within flowing text. The type size is 9pt, bold/normal, line spacing single.
-
-\begin{figure}[htb]
-	\begin{center}
-		\includegraphics[width=5cm]{figures/figure2.pdf}
-	\end{center}
-	\caption{E. Schrijver discovering the nearest worm hole to the right of Andromeda.\label{fig:Erwin}}
-\end{figure}
-
-
-\subsection{Tables}
-
-Tables are formatted as Table~\ref{tab:DescriptiveTextForATable}.
-
-\begin{table}[htbp]
-		\begin{tabularx}{8cm}{@{\arrayrulewidth1.5pt\vline}Y@{\arrayrulewidth1.5pt\vline}Y|Y|Y@{\arrayrulewidth1.5pt\vline}}
-			\noalign{\hrule height1.5pt} \multirow{2}{*}{Description} & \multicolumn{3}{c@{\arrayrulewidth1.5pt\vline}}{Parameter}\\
-			\cline{2-4} & A & B & C \\
-			\noalign{\hrule height1.5pt} X & AX & BX & CX\\
-			\hline Y & AY & BY & CY\\
-			\hline Z & AZ & BZ & CZ\\
-			\noalign{\hrule height1.5pt}
-		\end{tabularx}
-	\centering
-	\caption{Descriptive text for a table \label{tab:DescriptiveTextForATable}}
-\end{table}
-
-\subsection{References}
-References within the text will be inserted at the end of paper using standard citation style for articles~\cite{ArticleReference}, books\cite{BookReference} etc. If you want to refer to internet articles, the form given in~\cite{URLReference} can be used.
-
-\subsection{Formulas}
-Equations should be numbered and centred, as demonstrated with equation~(\ref{eq:FirstEquation}).
-\begin{flalign}
-\label{eq:FirstEquation}
-			\qquad\qquad F &= \pi r^2 & \mathrm{\left[m^2\right]} \quad
-\end{flalign}
-Please make sure that all variables are explained at first occurrence.
-
-When entering formulas (\ref{eq:FirstEquation}), we recommend simply copying the table above (with formula in left, units in middle and reference in right position), inserting it in the appropriate place in your text, and then working on it. The formula reference number (n) will be automatically updated.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Producing a PDF Document} \label{sec:pdf}
-
-The documents should be delivered as printable PDF files. To achieve sufficient print quality, a resolution of 600 dpi should be chosen in the settings of the PDF print window (e.g., Acrobat Distiller). Be sure that you also include all fonts used and remove it from the 'list of never embedded fonts' in the conversion settings.
-
-
-
-Three requirements must be fulfilled:
-\begin{itemize}
-	\item[-] the document must be formatted as A4 pages;
-	\item[-] \textbf{very important}: all the fonts MUST be embedded in the PDF document.
-	\item[-]	the PDF document must remain editable by the editors; in case of extended editing purposes the author has to realise the changes by himself.
-\end{itemize}
-
-These different points will be checked by the editors, and the document will be rejected in case of any problem with these rules.
 
 \section{Conclusion }
 The final manuscript should be submitted in electronic form to the editors of the proceedings prior to the conference. In exceptional circumstances a later date must be agreed by the editors. If you have any questions, please ask the program team of ICSA (icsa-proceedings@imt.rz.tu-ilmenau.de).
@@ -304,25 +193,7 @@ Authors should not include any company logo or advertising information of a real
 \begingroup
 \RaggedRight 		%% Flattersatz
 
-%\bibliographystyle{ACM-Reference-Format}
-%\bibliography{bibliography.bib}
-\begin{thebibliography}{5}\setlength{\itemsep}{0pt}
-\vspace{-8mm}
-\bibitem{ArticleReference} %
-Schall, A.: How to write a manuscript. Acta Acustica united with Acustica 90 (2004), 2203-2503
-%
-\bibitem{BookReference} %
-Author, M.: All about acoustics. Springler, Strasbourg, 2004
-%
-\bibitem{URLReference} %
-This is the TMT homepage. %
-URL: \textcolor{blue}{\url{https://www.tonmeister.de/index.php?p=tonmeistertagung/2016/ }}
-%
-\bibitem{EBU}
-EBU: Technical Recommendation R128. Loudness normalisation and permitted maximum level of audio signals. Geneva, 2011 %
-%
-
-\end{thebibliography}
+\printbibliography
 \endgroup
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
