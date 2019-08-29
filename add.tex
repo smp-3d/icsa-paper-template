@@ -167,9 +167,32 @@ It was first developed in the 1970s by the British National Research Development
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Ambisonics Decoding} \label{sec:AmbisonicsDecoding}
 
-Lorem Ipsum \autocite{norm}
+\subsection{Normalization}
 
+For succesful reconstruction of the sound field encoding and decoding have to agree on the method by which the spherical harmonic compononents are normalized. There are different approaches to calculating the normalization factor $N$ of ambisonics channel $m$ with order $\ell$ . In the following the most common ones are described.
 
+\subsubsection{SN3D}
+
+With SN3D or Schmidt semi-normalisation no component will ever exceed the peak vlaue of the 0th order component for single point sources. \autocite{ambix} Since the proposal of the AmbiX format it has been widely adopted in modern ambisonics software development.
+
+\[
+    N_{\ell,m}^{SN3D} = \sqrt{(2-\delta_m)\cfrac{\ell-|m|!}{\ell+|m|!}},\delta_m 
+    \begin{cases} 
+    1 & \quad \text{if m = 0}\\
+    1 & \quad \text{if m $\neq$ 0}
+    
+    \end{cases}
+\]
+
+\subsubsection{N3D}
+
+N3D differs from SN3D only by a scaling factor. It esnures qual power of the encoded components in the case of a perfectly diffuse 3D field.\autocite{daniel} It is used in MPEG-H.
+
+\[
+    N_{\ell, m}^{\mathrm{N} 3 \mathrm{D}}=N_{\ell, m}^{\mathrm{SN} 3 \mathrm{D}} \sqrt{2 \ell+1}    
+\]
+
+(For further information on normalization see \autocite{norm})
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation} \label{sec:Motivation}
