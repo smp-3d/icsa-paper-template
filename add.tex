@@ -256,11 +256,11 @@ In most cases the signals $\boldsymbol{s}$ decoded for various loudspeaker setup
 
 Thus decoding an Ambisonics signal, as long as the position of the speakers is constant, is a static operation with low complexity once the matrix has been calculated.
 
-In recent years, numerous approaches have been presented to calculate these matrices. Above all, the approaches differ in that they are more or less suitable for certain speaker systems and playback situations and contents. A good overview of existing approaches, their advantages and disadvantages can be found in \cite{allradepadcomp} \cite{unstablemmd} \cite{allrad} \cite{csad} \cite{epad}.
+In recent years, numerous approaches have been presented to calculate these matrices. Above all, the approaches differ in that they are more or less suitable for certain speaker systems and playback situations and contents. A good overview of existing approaches, their advantages and disadvantages can be found in \cite{allradepadcomp} and \cite{unstablemmd}
 
 Often these methods are difficult to use in practice. Many of the methods described exist as implementations only for applications specialized in the field of research. 
 
-For example, decoding matrices well suited for irregular loudspeaker layouts can be calculated with implementations created for Matlab, like the EPAD \cite{epad} or CSAD \cite{csad} method, but using them for example in Max/MSP with the well known plugin \textit{ambidecode\texttildelow} \cite{ICSTAmbiPaper} proves to be difficult. Although both solutions support importing and exporting of decoding matrices as files, the formats are not compatible with each other, even though they both contain the same data.
+For example, decoding matrices well suited for irregular loudspeaker layouts can be calculated with implementations created for Matlab, like the EPAD \cite{epad}, CSAD \cite{csad} and AllRAD \cite{allrad} method, but using them for example in Max/MSP with the well known plugin \textit{ambidecode\texttildelow} \cite{ICSTAmbiPaper} proves to be difficult. Although both solutions support importing and exporting of decoding matrices as files, the formats are not compatible with each other, even though they both contain the same data.
 
 To overcome compatibility problems like these, we propose the .add format. It should serve as a bridge between different solutions while still providing enough flexibility to incorporate all common features, aswell as future possibilities.
 
@@ -284,11 +284,11 @@ This is a collection of Matlab function for use with higher order ambisonics. \c
 
 \paragraph{IEM AllRAD decoder}
 
-The AllRAD decoder by Daniel Rudrich \cite{IEMFormatOnline} exports not only the matrix and some metadata such as a name and a description, but also information about the expected normalization of the ambisonics signal, a desired weighting of Ambisonics components per order, and the layout of the target rendering system. 
+The AllRAD decoder \cite{IEMFormatOnline} exports not only the matrix and some metadata such as a name and a description, but also information about the expected normalization of the ambisonics signal, a desired weighting of Ambisonics components per order, and the layout of the target rendering system. 
 
 \paragraph{IEM Simple Decoder}
 
-The Simple Decoder is unable to produce a matrix itself, but can read files produced by AllRAD Decoder \cite{IEMFormatOnline} and use the matrices it contains for ambisonic decoding. In addition, one can specify a subwoofer channel, which will be taken from the matrix output and passed through a high pass filter after decoding. 
+The Simple Decoder \cite{IEMFormatOnline} is unable to produce a matrix itself, but can read files produced by AllRAD Decoder and use the matrices it contains for ambisonic decoding. In addition, one can specify a subwoofer channel, which will be taken from the matrix output and passed through a high pass filter after decoding. 
 
 \paragraph{Ambilibrium}
 
@@ -331,7 +331,7 @@ As a container format, we chose JSON for a variety of reasons. JSON is widely us
 
 \section{Implementation} \label{sec:Implementation}
 
-\ref{fig:dotadd} shows a complete example of creating a .add file describing an ambisonic decoder of order decoder with a  single output.
+Fig. \ref{fig:dotadd} shows a complete example of creating a .add file describing an ambisonic decoder of order decoder with a  single output.
 
 \vspace{3mm}
 \begin{figure}[htb]
@@ -351,7 +351,7 @@ As a container format, we chose JSON for a variety of reasons. JSON is widely us
             add_file.export().serialize());
     
     \end{lstlisting}
-\caption{Creation and export of an .add file in JavaScript}\label{fig:dotadd}
+\caption{Creation and export of an .add file in JavaScript for the node.js runtime environment.}\label{fig:dotadd}
 \end{figure}
 \vspace{2mm}
 
