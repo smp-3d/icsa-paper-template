@@ -20,10 +20,55 @@
 \usepackage[english]{babel}			%% English- erweiterte Silbentrennung und �bersetzung von Begriffen
 %\usepackage{cite} 							%% erlaubt Einbindung von bibrefs
 \usepackage{ragged2e}						%% Flattersa
-\usepackage[backend=bibtex,style=ACM-Reference-Format]{biblatex}
+\usepackage{csquotes}
+\usepackage[backend=biber,style=ACM-Reference-Format]{biblatex}
+\usepackage{textcomp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{listings}
+\usepackage{xcolor}
+ 
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinelanguage{javascript}{
+  keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, let, require, const},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  sensitive=false,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  morestring=[b]',
+  morestring=[b]"
+}
+ 
+\lstset{
+   language=JavaScript,
+   backgroundcolor=\color{white!95!black},
+   extendedchars=true,
+   basicstyle=\footnotesize\ttfamily,
+   showstringspaces=false,
+   showspaces=false,
+   numbers=left,
+   numberstyle=\footnotesize,
+   numbersep=9pt,
+   tabsize=2,
+   breaklines=true,
+   showtabs=false,
+   captionpos=b
+}
+
+
 \renewcommand{\rmdefault}{ptm}  	% Times New Roman
 \newcommand{\citationneeded}[1][]{\textsuperscript{\color{black} [citation needed]}}
+
+\usepackage{pdfpages}
 
 %\bibliographystyle{ACM-Reference-Format}
 \bibliography{bibliography.bib}
@@ -106,7 +151,7 @@
 \vspace{7mm}%
 %
 \begin{center}
-\textbf{\Huge Ambisonics Decoder Description (.ADD)}\\
+\textbf{\Huge Ambisonic Decoder Description (.ADD)}\\
 { Presented  $^*$ by VDT.}
 \end{center}
 \vspace{10mm}%
@@ -126,7 +171,8 @@
 G. Arlauskas, J. Ohland, H. Schaar\\
 %
 \textit{\large %
-University of Applied Sciences Darmstadt, Germany, Email: jonas.ohland@stud.h-da.de
+University of Applied Sciences Darmstadt, Germany,}\\
+\textit{\large Email: \{jonas.ohland, gabriel.arlauskas, henning.schaar\}@stud.h-da.de
 }\\
 %
 }
@@ -156,85 +202,193 @@ The new ADD-format and toolkit enables increased flexibility in production workf
 
 \section{Introduction} \label{sec:introduction}
 
-\subsection{Spatial Audio}
+Spatial audio can be considered as an extension of already established surround sound, with the difference of covering a full-sphere instead of just a horizontal plane. One way for this is Ambisonics which follows the physical principles of a sound field, parting its geometry and energy distribution into mathematical components. Those components are optained by encoding a sound source with Spherical Harmonics.
 
-Spatial Audio or 3D Audio is either achieved by having multiple speakers placed around, aswell as above (and in some cases below) the listener or by using headphones with a head related transfer function (HRTF). This enables the creation of immersive audio experiences.
+Spherical harmonics are an infinite set of harmonic functions defined over the surface of a sphere and can be defined as 
 
-\subsection{Ambisonics}
+\begin{equation}
+Y_{\ell}^{m}(\boldsymbol{\vartheta})=N_{\ell,|m|}^{X} P_{\ell}^{|m|}(\cos \theta)\left\{\begin{array}{cc}{\cos (m \phi),} & {\text { for } m \geq 0} \\ {\sin (|m| \phi),} & {\text { for } m<0}\end{array}\right.
+\end{equation}
 
-Ambisonics is a 3D audio representation approach based on spherical harmonics. Compared to traditional multichannel audio where each channel contains the signal for one loudspeaker, in Ambisonics the channels contain information about certain properties of the acoustic field.
+where $\vartheta$ is the angular direction, $P$ is the associated Legendre polynominal of order $\ell$ and index $m$ and $N$ is a normalisation factor defined by a method $X$, either
 
-It was first developed in the 1970s by the British National Research Development Corporation for Broadcasting purposes.\citationneeded Recently the format has found new popularity as higher order implementations in virtual reality applications and irregular mutlichannel setups.
+\begin{equation}\label{eq:sn3d}
+N_{\ell, m}^{\mathrm{SN3D}}=\sqrt{\left(2-\delta_{m}\right) \frac{(\ell-|m|) !}{(\ell+|m|) !}}, \delta_{m}\left\{\begin{array}{ll}{1} & {\text { if } m=0} \\ {0} & {\text { if } m \neq 0}\end{array}\right.
+\end{equation}
 
+or 
+
+\begin{equation}\label{eq:n3d}
+N_{\ell, m}^{\mathrm{N3D}}=N_{\ell, m}^{\mathrm{SN3D}} \sqrt{2 \ell+1}
+\end{equation}
+
+And the encoding of a set of $k$ input signals $g_{l}$ can be expressed as
+
+\begin{equation}
+\hat{\boldsymbol{\phi}}=\sum_{k=1}^{\mathrm{K}} \boldsymbol{y}\left(\boldsymbol{\vartheta}_{k}\right) g_{k}
+\end{equation}
+
+where
+
+
+\begin{equation*}
+\boldsymbol{y}(\boldsymbol{\vartheta}) :=\left[Y_{0}^{0}(\boldsymbol{\vartheta}), \cdots, Y_{\ell}^{m}(\boldsymbol{\theta}), \cdots\right]^{\mathrm{T}}
+\end{equation*}
+
+or in a simplified form as
+
+\begin{equation}
+\hat{\boldsymbol{\phi}}=\boldsymbol{\Upsilon} \boldsymbol{g}
+\end{equation}
+
+where
+
+\begin{equation*}
+\begin{array}{l}{\boldsymbol{g} :=\left[g_{1}, \ldots g_{\mathrm{K}}\right]} \\ {\boldsymbol{\Upsilon} :=\left[y\left(\vartheta_{1}\right), \ldots, y\left(\vartheta_{\mathrm{K}}\right)\right]}\end{array}
+\end{equation*}
+
+
+In most cases the signals $\boldsymbol{s}$ decoded for various loudspeaker setups can be obtained by applying a decoding matrix D
+
+\begin{equation}
+    \boldsymbol{s}=\boldsymbol{D} \boldsymbol{\phi}
+\end{equation}
+
+Thus decoding an Ambisonics signal, as long as the position of the speakers is constant, is a static operation with low complexity once the matrix has been calculated.
+
+In recent years, numerous approaches have been presented to calculate these matrices. Above all, the approaches differ in that they are more or less suitable for certain speaker systems and playback situations and contents. A good overview of existing approaches, their advantages and disadvantages can be found in \cite{allradepadcomp} \cite{unstablemmd} \cite{allrad} \cite{csad} \cite{epad}.
+
+Often these methods are difficult to use in practice. Many of the methods described exist as implementations only for applications specialized in the field of research. 
+
+For example, decoding matrices well suited for irregular loudspeaker layouts can be calculated with implementations created for Matlab, like the EPAD \cite{epad} or CSAD \cite{csad} method \citationneeded{}, but using them for example in Max/MSP with the well known plugin \textit{ambidecode\texttildelow} \citationneeded{} proves to be difficult. Although both solutions support importing and exporting of decoding matrices as files, the formats are not compatible with each other, even though they both contain the same data.
+
+That's why we propose the .add format here. It should serve as a bridge between different solutions without being too much burdened with compromises in terms of flexibility.
+
+\section{Method} \label{sec:Method}
+
+In order to design such a format, it is first necessary to get an overview of the requirements that meet existing formats. Obviously, it is necessary to describe at least one decoding matrix $ D $ which transfers an incoming set of SH $ \ phi $ to the reproduction channels $ s $. Especially interesting are the data that additionally produce the applications we studied.
+
+In this context, we investigated the following solutions:
+
+\paragraph{ambidecode\texttildelow}
+
+ambidecode\texttildelow\ allows to export and import the internal matrix as an xml file.\citationneeded{} In addition, the expected normalization of the incoming Ambisonics signal as well as the layout of the speaker system, a gain factor for each output and a set of decoding weights for the ambisonic components can be exported to a separate file.
+
+\paragraph{Ambix decoder}
+
+In addition to the matrix, the configuration files for the ambix decoder also contain information about the expected order of spherical harmonics and a gain factor for the entire matrix.\citationneeded{}
+
+\paragraph{polarch/Higher-Order-Ambisonics}
+
+This is a collection of Matlab function for use with higher order ambisonics. None of these functions was explicitly written to generate files, but this can be done easily.\citationneeded{}
+
+\paragraph{IEM AllRAD decoder}
+
+The AllRAD decoder by Daniel Rudrich exports not only the matrix and some metadata such as a name and a description, but also information about the expected normalization of the ambisonics signal, a desired weighting of Ambisonics components per order, and the layout of the target rendering system.\citationneeded{}
+
+\paragraph{IEM Simple Decoder}
+
+The Simple Decoder is unable to produce a matrix itself, but can read files produced by AllRAD Decoder and use the matrices it contains for ambisonic decoding. In addition, one can specify a subwoofer channel, which will be taken from the matrix output and passed through a high pass filter after decoding.\citationneeded{}
+
+\paragraph{Ambilibrium}
+
+Ambilibrium \citationneeded{} exports configuration files for the Ambix decoder and the format used by the IEM.
+
+\paragraph{AmbDec}
+
+The AmbDec decoder offers the possibility to divide the Ambisonics signal first into two frequency bands and then to decode it with different decoding matrices. Thus, the format produced by the AmbDec offers the possibility to store two matrices, a crossover frequency and a relative gain factor for both frequency bands. In addition, information about the expected normalization, the speaker layout, and whether the decoder should make a latency compensation, if not all speakers are on the surface of a sphere.\citationneeded{}
+
+\paragraph{ambisonics decoder toolbox}
+
+The ambisonics decoder toolbox exports ambdec files and configuration files for the ambix decoder.\citationneeded{}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Ambisonics Encoding/Decoding} \label{sec:AmbisonicsEncodingDecoding}
+\section{Design} \label{sec:Design}
 
-\subsection{Spherical Harmonics}
+For the design of the .add format we decided to orient ourselves very close to the design of the configuration files for the IEM plugins. However, with the addition of an optional filter stage, optional additional matrices and extended metadata. All filters and all outputs can be named. An .add file contains a creation date, author information, details about the software it was created with and a version number. To avoid compatibility problems, a format revision is saved in each file. 
 
-The Legendre polynomials $P_{n}(x)$ are solutions to Legendres differential equation and can be expressed with a Rodrigues representation
-\[
-    P_{n}(x)=\frac{1}{2^{n} n !} \frac{d^{n}}{d x^{n}}\left(x^{2}-1\right)^{n}    
-\]
+[cite] describe the advantages of multiband decoding. Therefore, the .add format supports the basic description of filters applied to the Ambisonics signal before the decoding step with corresponding matrices.
 
-This is a Placeholder for Jonas' math wisdom
+In the description of the filters, we have decided to restrict ourselves to specifying the cut-off frequencies and to leave the filter design to the implementation, but we encourage the use of phase-matched IIR Filters to preserve uniform frequency response over all directions.
 
-\subsection{Normalization}
+In an .add file the Ambisonics components are always sorted according to the ACN standard where the channel number can be detemined algorithmically:
 
-For succesful reconstruction of the sound field encoding and decoding have to agree on the method by which the spherical harmonic compononents are normalized. There are different approaches to calculating the normalization factor $N$ of ambisonics channel $m$ with order $\ell$ . In the following the most common ones are described.
+\begin{equation}
+    ACN=\ell^{2}+\ell+m
+\end{equation}
 
-\subsubsection{SN3D}
+The expected type of normalization is specified with each file and may be either SN3D or N3D as in \eqref{eq:sn3d} and \eqref{eq:n3d} respectively.
 
-With SN3D or Schmidt semi-normalisation no component will ever exceed the peak value of the 0th order component for single point sources. \autocite{ambix} Since the proposal of the AmbiX format it has been widely adopted in modern ambisonics software development.
+As a container format, we chose JSON for a variety of reasons. JSON is widely used and supported by many programming languages. The structure of a JSON object can be represented by native constructs in memory which can be operated intuitively on. In addition, it is human-readable and can be edited with a simple text editor. Compared to XML, the memory requirements of JSON strings are much lower.
 
-\[
-    N_{\ell,m}^{SN3D} = \sqrt{(2-\delta_m)\cfrac{\ell-|m|!}{\ell+|m|!}},\delta_m 
-    \begin{cases} 
-    1 & \quad \text{if m = 0}\\
-    1 & \quad \text{if m $\neq$ 0}
-    
-    \end{cases}
-\]
+\vspace{2mm}
+\begin{figure}[htb]
+\includegraphics[width=\the\linewidth]{decoding.pdf}
+\caption{Schematic representation of an ambisonic decoder that can be described by the .add format.}
+\end{figure}
+\vspace{2mm}
 
-\subsubsection{N3D}
-
-N3D differs from SN3D only by a scaling factor. It ensures qual power of the encoded components in the case of a perfectly diffuse 3D field.\autocite{daniel} It is used in MPEG-H.
-
-\[
-    N_{\ell, m}^{\mathrm{N} 3 \mathrm{D}}=N_{\ell, m}^{\mathrm{SN} 3 \mathrm{D}} \sqrt{2 \ell+1}    
-\]
-
-(For further information on normalization see \autocite{norm})
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Motivation} \label{sec:Motivation}
-
-When working with Ambisonics in irregular multichannel setups, the choice of decoder is a key component in the quality of the experience a listener might have. So having the option to easily work with multiple tools will be very helpful in designing a listening enviroment which is suitable for ones needs.
-
-In the current field of ambisonics software tools, there is no agreed upon standard for saving and handling ambisonics decoding matrix data, which makes working with multiple software solutions difficult. 
-
-The creation of a software library which can be implemented by plugin developers will enable widespread adoption of the file format. For software which doesn't include \textit{.add} functionality there are user facing tools for converting between file types. A list of compatible file types can be found in the \textit{.add} specification \autocite{spec}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementation} \label{sec:Implementation}
 
-Lorem Ipsum
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\vspace{3mm}
+\begin{figure}[htb]
+\begin{lstlisting}
+    const ADD = require("dotadd.js");
+    const fs = require("fs");
+    
+    let add_file = new ADD();
+    
+    add_file.setAuthor("My Name")
+        .setName("Example Decoder");
+    
+    add_file.addMatrix(new ADD.Matrix(
+            [[1., 0., 0., 0.]]));
+    
+    fs.writeFileSync("/path/to/output/file.add", 
+            add_file.export().serialize());
+    
+    \end{lstlisting}
+\caption{Creation and export of an .add file in JavaScript}\label{fig:dotadd}
+\end{figure}
+\vspace{2mm}
 
 
-\section{Conclusion }
-The final manuscript should be submitted in electronic form to the editors of the proceedings prior to the conference. In exceptional circumstances a later date must be agreed by the editors. If you have any questions, please ask the program team of ICSA (icsa-proceedings@imt.rz.tu-ilmenau.de).
+\paragraph{Software libraries}
 
-Authors must make sure that they hold the copyrights of all of content in their manuscript. This is particularly important to any kind of picture, drawing etc.
+In order to garantee the uniformity of .add files and to facilitate the adaptation, software libraries for the programming languages C ++, Python, JavaScript and Matlab are developed. These allow fast adaptation of existing program infrastructure to the .add format.
 
-Authors should not include any company logo or advertising information of a real product in the manuscript; otherwise the paper will be rejected from the Proceedings and handled like a Product presentation. 
+
+\ref{fig:dotadd} shows a complete example of creating a .add file describing an ambisonic decoder of order decoder with a  single output.
+
+\paragraph{dotaddtool} 
+The dotaddtool converts the various formats for storing decoder matrices into .add files and back. Bitte hier noch was dazu schreiben (konvertieren von dateien und so).
+
+% \paragraph{dotadd web tool} // vielleicht lieber mal nicht im paper erwähnen?
+
+\paragraph{Decoder Catcher}
+
+Another part of the toolkit is the "DotAdd Decoder Catcher" that aims for the edge case when a plugin offers no way to export decoder matrices or does not do so as intended. The tool consists of two VSTs using a peer-to-peer inter-process connection which are placed up- and downstream right next to a target decoder plugin. Since a matrix is applied passively in the processing algorithm it is not crucial which type of signal is being processed. That means sending a impulse with a value of 1 through the processor for every channel and index results in the output being solely the internal decoding matrix used in the algorithm. Because matrix data can vary depending on i.e. Ambisonics order or channel configuration, it is possible to configure the output impulse of the emitter VST to produce fitting and functional matrix data. The values of the matrix are cached on run-time, recalculated according to configurations specified by the user and lastly exported as an .add-file.
+
+
+The Software libraries and tools will be realeased soon and can be found under \citationneeded{}.
+
+
+\section{Discussion}\label{sec:Discussion}
+
+Along the history of Ambisonics developers have contributed to the technology in a gradual manner, each step making more of the theory practically accessible. Provision of full-fledged toolkits like SPARTA or IEM PluginSuite has pushed the limits for widespread usage of Ambisonics technology but compatibility issues are still common and prevent industrial use of multi-software solutions. 
+As for decoders it still lacks a common ground to improve further according to agreed upon standards. Our proposal is another step away from the realm of fundamental research and rather towards an universal workflow with this type of technology. We are optimistic about the outcome and are curious about improvements and open for discourse.
+
+
+{\Huge too much?}
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % REFERENCES
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \renewcommand\refname{}
-\section{References}
+\section{References}\label{sec:References}
 
 \begingroup
 \RaggedRight 		%% Flattersatz
