@@ -308,7 +308,7 @@ The ambisonics decoder toolbox exports ambdec files and configuration files for 
 
 For the design of the .add format we decided to orient ourselves very close to the design of the configuration files for the IEM plugins. However, with the addition of an optional filter stage, optional additional matrices and extended metadata. All filters and all outputs can be named. An .add file contains a creation date, author information, details about the software it was created with and a version number. To avoid compatibility problems, a format revision is saved in each file. 
 
-[cite] describe the advantages of multiband decoding. Therefore, the .add format supports the basic description of filters applied to the Ambisonics signal before the decoding step with corresponding matrices.
+\cite{heller2008is} and \cite{ambifilters} describe the advantages of multiband decoding. Therefore, the .add format supports the basic description of filters applied to the Ambisonics signal before the decoding step with corresponding matrices.
 
 In the description of the filters, we have decided to restrict ourselves to specifying the cut-off frequencies and to leave the filter design to the implementation, but we encourage the use of phase-matched IIR Filters to preserve uniform frequency response over all directions.
 
@@ -371,7 +371,7 @@ The dotaddtool converts the various formats for storing decoder matrices into .a
 Another part of the toolkit is the "DotAdd Decoder Catcher" that aims for the edge case when a plugin offers no way to export decoder matrices or does not do so as intended. The tool consists of two VSTs using a peer-to-peer inter-process connection which are placed up- and downstream right next to a target decoder plugin. Since a matrix is applied passively in the processing algorithm it is not crucial which type of signal is being processed. That means sending a impulse with a value of 1 through the processor for every channel and index results in the output being solely the internal decoding matrix used in the algorithm. Because matrix data can vary depending on e.g. Ambisonics order or channel configuration, it is possible to configure the output impulse of the emitter VST to produce fitting and functional matrix data. The values of the matrix are cached on run-time, recalculated according to configurations specified by the user and lastly exported as an .add-file.
 
 
-The Software libraries and tools will be realeased soon and can be found under \citationneeded{}.
+The Software libraries and tools will be released soon and can be found under \cite{dotadd}.
 
 
 \section{Discussion}\label{sec:Discussion}
