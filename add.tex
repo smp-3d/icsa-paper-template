@@ -15,13 +15,13 @@
 \usepackage{abstract}
 \usepackage{xcolor}							%%bmr - Schriftfarbe
 \usepackage{fancyhdr}						%%bmr - Kopf- und Fusszeilen
-\usepackage{lipsum} \setlipsumdefault{1}
+\usepackage{lipsum}
 \usepackage[pdftex]{hyperref}		%%Dokumenteneigenschaften
 \usepackage[english]{babel}			%% English- erweiterte Silbentrennung und �bersetzung von Begriffen
 %\usepackage{cite} 							%% erlaubt Einbindung von bibrefs
 \usepackage{ragged2e}						%% Flattersa
 \usepackage{csquotes}
-\usepackage[backend=biber,style=ACM-Reference-Format]{biblatex}
+\usepackage[backend=biber,style=ACM-Reference-Format,sorting=none]{biblatex}
 \usepackage{textcomp}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -260,7 +260,7 @@ In recent years, numerous approaches have been presented to calculate these matr
 
 Often these methods are difficult to use in practice. Many of the methods described exist as implementations only for applications specialized in the field of research. 
 
-For example, decoding matrices well suited for irregular loudspeaker layouts can be calculated with implementations created for Matlab, like the EPAD \cite{epad} or CSAD \cite{csad} method \citationneeded{}, but using them for example in Max/MSP with the well known plugin \textit{ambidecode\texttildelow} \citationneeded{} proves to be difficult. Although both solutions support importing and exporting of decoding matrices as files, the formats are not compatible with each other, even though they both contain the same data.
+For example, decoding matrices well suited for irregular loudspeaker layouts can be calculated with implementations created for Matlab, like the EPAD \cite{epad} or CSAD \cite{csad} method, but using them for example in Max/MSP with the well known plugin \textit{ambidecode\texttildelow} \cite{ICSTAmbiPaper} proves to be difficult. Although both solutions support importing and exporting of decoding matrices as files, the formats are not compatible with each other, even though they both contain the same data.
 
 That's why we propose the .add format here. It should serve as a bridge between different solutions without being too much burdened with compromises in terms of flexibility.
 
@@ -272,35 +272,35 @@ In this context, we investigated the following solutions:
 
 \paragraph{ambidecode\texttildelow}
 
-ambidecode\texttildelow\ allows to export and import the internal matrix as an xml file.\citationneeded{} In addition, the expected normalization of the incoming Ambisonics signal as well as the layout of the speaker system, a gain factor for each output and a set of decoding weights for the ambisonic components can be exported to a separate file.
+ambidecode\texttildelow\ from \cite{ICSTAmbiOnline} and described in \cite{ICSTAmbiPaper} allows to export and import the internal matrix as an xml file. In addition, the expected normalization of the incoming Ambisonics signal as well as the layout of the speaker system, a gain factor for each output and a set of decoding weights for the ambisonic components can be exported to a separate file.
 
 \paragraph{Ambix decoder}
 
-In addition to the matrix, the configuration files for the ambix decoder also contain information about the expected order of spherical harmonics and a gain factor for the entire matrix.\citationneeded{}
+In addition to the matrix, the configuration files for the ambix decoder also contain information about the expected order of spherical harmonics and a gain factor for the entire matrix.\cite{ambiXOnline}
 
-\paragraph{polarch/Higher-Order-Ambisonics}
+\paragraph{Compact higher-order Ambisonic Library}
 
-This is a collection of Matlab function for use with higher order ambisonics. None of these functions was explicitly written to generate files, but this can be done easily.\citationneeded{}
+This is a collection of Matlab function for use with higher order ambisonics. None of these functions was explicitly written to generate files, but this can be done easily. \cite{PolarchAmbiLib}
 
 \paragraph{IEM AllRAD decoder}
 
-The AllRAD decoder by Daniel Rudrich exports not only the matrix and some metadata such as a name and a description, but also information about the expected normalization of the ambisonics signal, a desired weighting of Ambisonics components per order, and the layout of the target rendering system.\citationneeded{}
+The AllRAD decoder by Daniel Rudrich exports not only the matrix and some metadata such as a name and a description, but also information about the expected normalization of the ambisonics signal, a desired weighting of Ambisonics components per order, and the layout of the target rendering system. \cite{IEMFormatOnline}
 
 \paragraph{IEM Simple Decoder}
 
-The Simple Decoder is unable to produce a matrix itself, but can read files produced by AllRAD Decoder and use the matrices it contains for ambisonic decoding. In addition, one can specify a subwoofer channel, which will be taken from the matrix output and passed through a high pass filter after decoding.\citationneeded{}
+The Simple Decoder is unable to produce a matrix itself, but can read files produced by AllRAD Decoder and use the matrices it contains for ambisonic decoding. In addition, one can specify a subwoofer channel, which will be taken from the matrix output and passed through a high pass filter after decoding. \cite{IEMFormatOnline}
 
 \paragraph{Ambilibrium}
 
-Ambilibrium \citationneeded{} exports configuration files for the Ambix decoder and the format used by the IEM.
+Ambilibrium \cite{romanov2018ambilibrium} exports configuration files for the Ambix decoder and the format used by the IEM.
 
 \paragraph{AmbDec}
 
-The AmbDec decoder offers the possibility to divide the Ambisonics signal first into two frequency bands and then to decode it with different decoding matrices. Thus, the format produced by the AmbDec offers the possibility to store two matrices, a crossover frequency and a relative gain factor for both frequency bands. In addition, information about the expected normalization, the speaker layout, and whether the decoder should make a latency compensation, if not all speakers are on the surface of a sphere.\citationneeded{}
+The AmbDec decoder offers the possibility to divide the Ambisonics signal first into two frequency bands and then to decode it with different decoding matrices. Thus, the format produced by the AmbDec offers the possibility to store two matrices, a crossover frequency and a relative gain factor for both frequency bands. In addition, information about the expected normalization, the speaker layout, and whether the decoder should make a latency compensation, if not all speakers are on the surface of a sphere. \cite{AmbDecManual}
 
 \paragraph{ambisonics decoder toolbox}
 
-The ambisonics decoder toolbox exports ambdec files and configuration files for the ambix decoder.\citationneeded{}
+The ambisonics decoder toolbox exports ambdec files and configuration files for the ambix decoder. \cite{adtpaper} 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
