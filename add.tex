@@ -256,23 +256,23 @@ In most cases the signals $\boldsymbol{s}$ decoded for various loudspeaker setup
 
 Thus decoding an Ambisonics signal, as long as the position of the speakers is constant, is a static operation with low complexity once the matrix has been calculated.
 
-In recent years, numerous approaches have been presented to calculate these matrices. Above all, the approaches differ in that they are more or less suitable for certain speaker systems and playback situations and contents. A good overview of existing approaches, their advantages and disadvantages can be found in \cite{allradepadcomp} and \cite{unstablemmd}
+In recent years, numerous approaches have been presented to calculate these matrices. Above all, the approaches differ in their suitability regarding certain speaker systems and playback situations and contents. A good overview of existing approaches, their advantages and disadvantages can be found in \cite{allradepadcomp} and \cite{unstablemmd}
 
 Often these methods are difficult to use in practice. Many of the methods described exist as implementations only for applications specialized in the field of research. 
 
-For example, decoding matrices well suited for irregular loudspeaker layouts can be calculated with implementations created for Matlab, like the EPAD \cite{epad}, CSAD \cite{csad} and AllRAD \cite{allrad} method, but using them for example in Max/MSP with the well known plugin \textit{ambidecode\texttildelow} \cite{ICSTAmbiPaper} proves to be difficult. Although both solutions support importing and exporting of decoding matrices as files, the formats are not compatible with each other, even though they both contain the same data.
+For example, decoding matrices well suited for irregular loudspeaker layouts can be calculated with implementations created for Matlab, such as the EPAD \cite{epad}, CSAD \cite{csad} and AllRAD \cite{allrad} method. However, when using them for example in Max/MSP with the well known plugin \textit{ambidecode\texttildelow} \cite{ICSTAmbiPaper} proves to be difficult. Although both solutions support importing and exporting of decoding matrices as files, the formats are not compatible with each other, even though they both contain the same data.
 
-To overcome compatibility problems like these, we propose the .add format. It should serve as a bridge between different solutions while still providing enough flexibility to incorporate all common features, aswell as future possibilities.
+To overcome compatibility problems like these, we propose the .add format. It should serve as a bridge between different solutions, while still providing enough flexibility to incorporate all common features aswell as future developments.
 
 \section{Method} \label{sec:Method}
 
-In order to design such a format, firstly it is recommendable to get an overview of the requirements that meet existing formats. Obviously, it is necessary to describe at least one decoding matrix $ D $ which transfers an incoming set of SH $ \phi $ to the reproduction channels $ s $. Especially interesting though, is the additional data produced by the applications we analyzed.
+In order to design such a format, firstly it is recommendable to get an overview of the requirements that meet existing formats. Obviously, it is necessary to describe at least one decoding matrix $ D $ which transfers an incoming set of SH $ \phi $ to the reproduction channels $ s $. Especially interesting though, is the additional data produced by the applications we analyzed, such as e.g. speaker positions, normalization method and output routing.
 
 In this context, we investigated the following solutions:
 
 \paragraph{ambidecode\texttildelow}
 
-ambidecode\texttildelow\ from \cite{ICSTAmbiOnline} and described in \cite{ICSTAmbiPaper} allows to export and import the internal matrix as an xml file. In addition, the expected normalization of the incoming Ambisonics signal as well as the layout of the speaker system, a gain factor for each output and a set of decoding weights for the ambisonic components can be exported to a separate file.
+ambidecode\texttildelow\ developed in the Zurich Unisersity of Arts \cite{ICSTAmbiOnline}, described in \cite{ICSTAmbiPaper} allows to export and import the internal matrix as an xml file. In addition, the expected normalization of the incoming Ambisonics signal as well as the layout of the speaker system, a gain factor for each output and a set of decoding weights for the ambisonic components can be exported to a separate file.
 
 \paragraph{Ambix decoder}
 
