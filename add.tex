@@ -172,7 +172,7 @@ G. Arlauskas, J. Ohland, H. Schaar\\
 %
 \textit{\large %
 University of Applied Sciences Darmstadt, Germany,}\\
-\textit{\large Email: \{jonas.ohland, gabriel.arlauskas, henning.schaar\}@stud.h-da.de
+\textit{\large Email: \{jonas.ohland, gabriel.p.arlauskas, henning.schaar\}@stud.h-da.de
 }\\
 %
 }
@@ -210,16 +210,16 @@ Spherical harmonics are an infinite set of harmonic functions defined over the s
 Y_{\ell}^{m}(\boldsymbol{\vartheta})=N_{\ell,|m|}^{X} P_{\ell}^{|m|}(\cos \theta)\left\{\begin{array}{cc}{\cos (m \phi),} & {\text { for } m \geq 0} \\ {\sin (|m| \phi),} & {\text { for } m<0}\end{array}\right.
 \end{equation}
 
-where $\vartheta$ is the angular direction, $P$ is the associated Legendre polynominal of order $\ell$ and index $m$ and $N$ is a normalisation factor defined by a method $X$, either
+where $\vartheta$ is the angular direction, $P$ is the associated Legendre polynominal of order $\ell$ and index $m$ and $N$ is a normalisation factor obtained by a method X defined either for the Schmidt semi-normalized (SN3D) as
 
 \begin{equation}\label{eq:sn3d}
-N_{\ell, m}^{\mathrm{SN3D}}=\sqrt{\left(2-\delta_{m}\right) \frac{(\ell-|m|) !}{(\ell+|m|) !}}, \delta_{m}\left\{\begin{array}{ll}{1} & {\text { if } m=0} \\ {0} & {\text { if } m \neq 0}\end{array}\right.
+N_{\ell, |m|}^{\mathrm{SN3D}}=\sqrt{\frac{2-\delta_{m}}{4 \pi}\frac{(\ell-|m|) !}{(\ell+|m|) !}}, \delta_{m}\left\{\begin{array}{ll}{1} & {\text { if } m=0} \\ {0} & {\text { if } m \neq 0}\end{array}\right.
 \end{equation}
 
-or 
+or for the Fully normalized form (N3D) with an additional factor
 
 \begin{equation}\label{eq:n3d}
-N_{\ell, m}^{\mathrm{N3D}}=N_{\ell, m}^{\mathrm{SN3D}} \sqrt{2 \ell+1}
+    N_{\ell, |m|}^{\mathrm{N} 3 \mathrm{D}}=N_{\ell, |m|}^{\mathrm{SN} 3 \mathrm{D}} \sqrt{2 \ell+1}
 \end{equation}
 
 And the encoding of a set of $k$ input signals $g_{l}$ can be expressed as
