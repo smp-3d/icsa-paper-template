@@ -202,7 +202,7 @@ The new ADD-format and toolkit enables increased flexibility in production workf
 
 \section{Introduction} \label{sec:introduction}
 
-Spatial audio can be considered as an extension of already established surround sound but in addition to the horizontal plane, the whole three dimensional sound field is described. Ambisonics has been established as a reliable mathematical way to represent the sound field components \autocite{gerzon}. Those components are obtained by encoding a sound source with spherical harmonics.
+Spatial audio can be considered as an extension of surround sound but in addition to the horizontal plane, the whole three dimensional sound field is described. Ambisonics has been established as a reliable mathematical way to represent the sound field components \autocite{gerzon}. Those components are obtained by encoding a sound source with spherical harmonics.
 
 Spherical harmonics are an infinite set of harmonic functions defined over the surface of a sphere and can be defined as 
 
@@ -216,7 +216,7 @@ where $\vartheta$ is the angular direction, $P$ is the associated Legendre polyn
 N_{\ell, |m|}^{\mathrm{SN3D}}=\sqrt{\frac{2-\delta_{m}}{4 \pi}\frac{(\ell-|m|) !}{(\ell+|m|) !}}, \delta_{m}\left\{\begin{array}{ll}{1} & {\text { if } m=0} \\ {0} & {\text { if } m \neq 0}\end{array}\right.
 \end{equation}
 
-or for the Fully normalized form (N3D) with an additional factor
+or for the fully normalized form (N3D) with an additional factor
 
 \begin{equation}\label{eq:n3d}
     N_{\ell, |m|}^{\mathrm{N} 3 \mathrm{D}}=N_{\ell, |m|}^{\mathrm{SN} 3 \mathrm{D}} \sqrt{2 \ell+1}
@@ -256,7 +256,7 @@ In most cases the signals $\boldsymbol{s}$ decoded for various loudspeaker setup
 
 Thus decoding an Ambisonics signal, as long as the position of the speakers is constant, is a static operation with low complexity once the matrix has been calculated.
 
-In recent years, numerous approaches have been presented to calculate these matrices. Above all, the approaches differ in their suitability regarding certain speaker systems and playback situations and contents. A good overview of existing approaches, their advantages and disadvantages can be found in \cite{allradepadcomp} and \cite{unstablemmd}
+In recent years, numerous approaches have been presented to calculate these matrices. Above all, the approaches differ in their suitability regarding certain speaker systems and playback situations and contents. A good overview of existing approaches, their advantages and disadvantages can be found in \cite{allradepadcomp} and \cite{unstablemmd}.
 
 Often these methods are difficult to use in practice. Many of the methods described exist only as implementations for applications tailored to specific fields of research. 
 
@@ -280,7 +280,7 @@ In addition to the matrix, the configuration files for the ambix decoder \cite{a
 
 \paragraph{Compact higher-order Ambisonic Library}
 
-This is a collection of Matlab function for use with higher order ambisonics. \cite{PolarchAmbiLib} None of these functions was explicitly written to generate files but this can be done easily. 
+This is a collection of Matlab functions for use with higher order ambisonics. \cite{PolarchAmbiLib} None of these functions were explicitly written to generate files but this can be done easily. 
 
 \paragraph{IEM AllRAD decoder}
 
@@ -306,7 +306,7 @@ The ambisonics decoder toolbox \cite{adtpaper} exports ambdec files and configur
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Design} \label{sec:Design}
 
-For the design of the .add format we decided to orient ourselves very close to the design of the configuration files for the IEM plugins. Additionaly, an optional filter stage, optional additional matrices and extended metadata can be saved. All filters and all outputs can be named. An .add file contains a creation date, author information, details about the software it was created with, and a version number. To avoid compatibility problems, a format revision is saved in each file. 
+For designing the .add format we decided to stay close to the design of the configuration files for the IEM plugins. Additionaly, an optional filter stage, optional additional matrices and extended metadata can be saved. All filters and all outputs can be named. An .add file contains a creation date, author information, details about the software it was created with, and a version number. To avoid compatibility problems, a format revision is saved in each file. 
 
 Papers written by Heller et all. \cite{heller2008is, ambifilters} describe the advantages of multiband decoding. For this reason, the .add format supports the basic description of filters applied to the Ambisonics signal before the decoding step with corresponding matrices.
 
