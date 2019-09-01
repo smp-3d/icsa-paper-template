@@ -210,7 +210,7 @@ Spherical harmonics are an infinite set of harmonic functions defined over the s
 Y_{\ell}^{m}(\boldsymbol{\vartheta})=N_{\ell,|m|}^{X} P_{\ell}^{|m|}(\cos \theta)\left\{\begin{array}{cc}{\cos (m \phi),} & {\text { for } m \geq 0} \\ {\sin (|m| \phi),} & {\text { for } m<0}\end{array}\right.
 \end{equation}
 
-where $\vartheta$ is the angular direction, $P$ is the associated Legendre polynominal of order $\ell$ and index $m$ and $N$ is a normalisation factor obtained by a method X defined either for the Schmidt semi-normalized (SN3D) as
+where $\vartheta$ is the angular direction, $P$ is the associated Legendre polynominal of order $\ell$ and index $m$, and $N$ is a normalisation factor obtained by a method X defined either for the Schmidt semi-normalized (SN3D) as
 
 \begin{equation}\label{eq:sn3d}
 N_{\ell, |m|}^{\mathrm{SN3D}}=\sqrt{\frac{2-\delta_{m}}{4 \pi}\frac{(\ell-|m|) !}{(\ell+|m|) !}}, \delta_{m}\left\{\begin{array}{ll}{1} & {\text { if } m=0} \\ {0} & {\text { if } m \neq 0}\end{array}\right.
@@ -266,7 +266,7 @@ To overcome compatibility problems like these, we propose the .add format. It sh
 
 \section{Method} \label{sec:Method}
 
-In order to design such a format, firstly it is recommendable to get an overview of the requirements that meet existing formats. Obviously, it is necessary to describe at least one decoding matrix $ D $ which transfers an incoming set of SH $ \phi $ to the reproduction channels $ s $. Especially interesting though, is the additional data produced by the applications we analyzed, such as e.g. speaker positions, normalization method and output routing.
+In order to design such a format, firstly it is recommendable to get an overview of the requirements that meet existing formats. Obviously, it is necessary to describe at least one decoding matrix $ D $ which transfers an incoming set of SH $ \phi $ to the reproduction channels $ s $. Especially interesting though, is the additional data produced by the applications we analyzed, such as e.g.\ speaker positions, normalization method and output routing.
 
 In this context, we investigated the following solutions:
 
@@ -320,7 +320,7 @@ Channel ordering in .add files is done according to the ACN standard, where the 
 
 The expected type of normalization is specified with each file and may be either SN3D or N3D as in \eqref{eq:sn3d} and \eqref{eq:n3d} respectively.
 
-As a container format, we chose JSON for a variety of reasons. JSON is widely used and supported by many programming languages. The structure of a JSON object can be represented by native constructs in memory which can be manipulated intuitively. Furthermore, it is human-readable and can be edited with a simple text editor. Compared to XML, JSON strings are favorable regarding data storage space.
+As a container format, we chose JSON for a variety of reasons. JSON is widely used and supported by many programming languages. The structure of a JSON object can be represented by native constructs in those languages which can be manipulated intuitively. Furthermore, it is human-readable and can be edited with a simple text editor. Compared to XML, JSON strings are favorable regarding data storage space.
 
 \vspace{2mm}
 \begin{figure}[htb]
