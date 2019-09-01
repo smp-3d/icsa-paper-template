@@ -36,8 +36,8 @@
 \lstdefinelanguage{javascript}{
   keywords={typeof, new, true, false, catch, function, return, null, catch, switch, var, if, in, while, do, else, case, break, let, require, const},
   keywordstyle=\color{blue}\bfseries,
-  ndkeywords={class, export, boolean, throw, implements, import, this},
-  ndkeywordstyle=\color{darkgray}\bfseries,
+  ndkeywords={class, boolean, throw, implements, import, this, ADD, fs, Matrix},
+  ndkeywordstyle=\color{green!50!black}\bfseries,
   identifierstyle=\color{black},
   sensitive=false,
   comment=[l]{//},
@@ -331,7 +331,23 @@ As a container format, we chose JSON for a variety of reasons. JSON is widely us
 
 \section{Implementation} \label{sec:Implementation}
 
-Fig. \ref{fig:dotadd} shows a complete example of creating a .add file describing an ambisonic decoder of order decoder with a  single output.
+\paragraph{dotaddtool} 
+The dotaddtool converts the various formats for storing decoder matrices into .add files and back. This tool enables end users to work with multiple softwares, which haven't implemented the .add file format themselves. As such it also serves as an intermediate solution, before .add files have seen widespread adoption.
+
+% \paragraph{dotadd web tool} // vielleicht lieber mal nicht im paper erwähnen?
+
+\paragraph{Decoder Extractor}
+Another part of the toolkit is the "dotadd-decoder-extractor" that aims for the particular case when a plugin doesn't allow exporting of decoder matrices.
+
+The tool consists of two VST Plugins using a peer-to-peer inter-process connection which are placed up- and downstream right next to a target decoder plugin. Since a matrix is applied passively in the processing algorithm, sending a signal with a value of 1 through the processor for every channel results in the output being solely the internal decoding matrix used in the plugin. 
+
+Because matrix data can vary depending on e.g. Ambisonics order or channel configuration, it is possible to configure the output signal of the exciter plugin to produce fitting and functional matrix data. The values of the matrix are cached on run-time, recalculated according to configurations specified by the user and lastly exported as an .add-file. The tool can only extract matrices from decoders that do not apply any additional filtering or band-splitting.
+
+\paragraph{Software libraries}
+
+In order to garantee the uniformity of .add files and to facilitate the adaptation, software libraries for the programming languages C ++, Python, JavaScript and Matlab are developed. These allow fast adaptation of existing program infrastructure to the .add format.
+
+Fig. \ref{fig:dotadd} shows a complete example of creating a .add file describing an basic ambisonic decoder with a single output.
 
 \vspace{3mm}
 \begin{figure}[htb]
@@ -339,37 +355,20 @@ Fig. \ref{fig:dotadd} shows a complete example of creating a .add file describin
     const ADD = require("dotadd.js");
     const fs = require("fs");
     
-    let add_file = new ADD();
-    
-    add_file.setAuthor("My Name")
-        .setName("Example Decoder");
+    let add_file = new ADD()
+                .setName("Example Decoder")
+                .setAuthor("My Name");
     
     add_file.addMatrix(new ADD.Matrix(
             [[1., 0., 0., 0.]]));
     
-    fs.writeFileSync("/path/to/output/file.add", 
+    fs.writeFileSync("/output/file.add", 
             add_file.export().serialize());
     
     \end{lstlisting}
 \caption{Creation and export of an .add file in JavaScript for the node.js runtime environment.}\label{fig:dotadd}
 \end{figure}
 \vspace{2mm}
-
-
-\paragraph{Software libraries}
-
-In order to garantee the uniformity of .add files and to facilitate the adaptation, software libraries for the programming languages C ++, Python, JavaScript and Matlab are developed. These allow fast adaptation of existing program infrastructure to the .add format.
-
-
-\paragraph{dotaddtool} 
-The dotaddtool converts the various formats for storing decoder matrices into .add files and back. This tool enables end users to work with multiple softwares, which haven't implemented the .add file format themselves. As such it also serves as an intermediate solution, before .add files have seen widespread adoption.
-
-% \paragraph{dotadd web tool} // vielleicht lieber mal nicht im paper erwähnen?
-
-\paragraph{Decoder Catcher}
-
-Another part of the toolkit is the "DotAdd Decoder Catcher" that aims for the particular case when a plugin doesn't allow exporting of decoder matrices or does not create them in the desired formatting. The tool consists of two VSTs using a peer-to-peer inter-process connection which are placed up- and downstream right next to a target decoder plugin. Since a matrix is applied passively in the processing algorithm it is not crucial which type of signal is being processed. That means sending a impulse with a value of 1 through the processor for every channel and index results in the output being solely the internal decoding matrix used in the algorithm. Because matrix data can vary depending on e.g. Ambisonics order or channel configuration, it is possible to configure the output impulse of the emitter VST to produce fitting and functional matrix data. The values of the matrix are cached on run-time, recalculated according to configurations specified by the user and lastly exported as an .add-file.
-
 
 The Software libraries and tools will be released soon and can be found under \cite{dotadd}.
 
